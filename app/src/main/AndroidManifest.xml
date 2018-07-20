@@ -21,11 +21,11 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDxVL9P0yL_y9OduxQBT3CIjaC-19JLeNU"/>
+            android:value="AIzaSyDxVL9P0yL_y9OduxQBT3CIjaC-19JLeNU" />
 
         <service
             android:name=".FetchAddressIntentService"
-            android:exported="false"/>
+            android:exported="false" />
     </application>
 
 </manifest>

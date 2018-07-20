@@ -548,8 +548,8 @@ public class MainActivity extends AppCompatActivity {
             if (grantResults.length <= 0) {
                 Log.i(LOG_TAG, "User interaction was cancelled.");
             } else if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Log.i(LOG_TAG, "Permission granted, updates requested, starting location updates");
-                    startLocationUpdates();
+                Log.i(LOG_TAG, "Permission granted, updates requested, starting location updates");
+                startLocationUpdates();
             } else {
                 ifShownPermissionExplanation = true;
                 showSnackbar(R.string.permission_denied_explanation,

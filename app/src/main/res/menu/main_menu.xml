@@ -4,14 +4,14 @@
 
     <item
         android:id="@+id/action_update_location"
-        android:icon="@drawable/location_icon_24"
+        android:icon="@mipmap/baseline_my_location_white_24"
         android:orderInCategory="1"
         android:title="@string/your_location"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/action_refresh"
-        android:icon="@drawable/refresh_icon_24"
+        android:icon="@mipmap/baseline_refresh_white_24"
         android:orderInCategory="2"
         android:title="@string/refresh"
         app:showAsAction="always" />
