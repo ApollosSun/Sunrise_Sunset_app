@@ -77,8 +77,14 @@ public class SunInfoFragment extends Fragment {
     }
 
     private void getArgs (){
-        latitude = getArguments().getString("latitude");
-        longitude = getArguments().getString("longitude");
+
+        if(getArguments() != null) {
+            latitude = getArguments().getString("latitude");
+            longitude = getArguments().getString("longitude");
+        } else {
+            latitude = "0";
+            longitude = "0";
+        }
     }
 
     private void updateWeather() {
@@ -100,7 +106,7 @@ public class SunInfoFragment extends Fragment {
 
     private String getLocalTime(String time){
         SimpleDateFormat initialDateFormat = new SimpleDateFormat
-                ("yyyy-MM-dd'T'HH:mm:ssXXX", Locale.ENGLISH);
+                ("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH);
         initialDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
         Date date = null;
 

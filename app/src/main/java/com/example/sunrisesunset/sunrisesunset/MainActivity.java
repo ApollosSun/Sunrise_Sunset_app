@@ -94,6 +94,8 @@ public class MainActivity extends AppCompatActivity {
         ifShownPermissionExplanation = false;
         isFrCreated = false;
 
+        mCurrentLocation = new Location("");
+
         mAddressOutput = "";
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
