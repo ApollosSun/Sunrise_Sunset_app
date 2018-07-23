@@ -182,7 +182,7 @@ public class MainActivity extends AppCompatActivity {
 
                     mRequestingLocationUpdates = true;
                     autocompleteFragment.setText("");
-                    loadInfo(mCurrentLocation);
+                    loadInfoInFragment(mCurrentLocation);
                     stopLocationUpdates();
 
                     Log.i(LOG_TAG,"Location was updated, current position is "
@@ -211,7 +211,7 @@ public class MainActivity extends AppCompatActivity {
             public void onPlaceSelected(Place place) {
 
                 getDataFromPlace(place);
-                loadInfo(mCurrentLocation);
+                loadInfoInFragment(mCurrentLocation);
                 displayAddressOutput();
 
                 Log.i(LOG_TAG, "Place was found. Address: " + place.getAddress());
@@ -242,7 +242,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void loadInfo(Location location){
+    private void loadInfoInFragment(Location location){
 
         if(mNoInternetSnackbar.isShown()){
             mNoInternetSnackbar.dismiss();
@@ -253,10 +253,10 @@ public class MainActivity extends AppCompatActivity {
             Bundle bundle = new Bundle();
             bundle.putString("latitude", String.valueOf(location.getLatitude()));
             bundle.putString("longitude", String.valueOf(location.getLongitude()));
-            sunInfoFragment.setArguments(bundle);
 
             if (!isFrCreated){
 
+                sunInfoFragment.setArguments(bundle);
                 mFragmentTransaction = mFragmentManager.beginTransaction();
                 mFragmentTransaction.add(R.id.container, sunInfoFragment).commit();
 
@@ -264,7 +264,14 @@ public class MainActivity extends AppCompatActivity {
 
             } else {
                 mFragmentTransaction = mFragmentManager.beginTransaction();
-                mFragmentTransaction.detach(sunInfoFragment).attach(sunInfoFragment).commit();
+                mFragmentTransaction.remove(sunInfoFragment).commitAllowingStateLoss();
+
+                sunInfoFragment = new SunInfoFragment();
+                sunInfoFragment.setArguments(bundle);
+
+                mFragmentManager = getSupportFragmentManager();
+                mFragmentTransaction = mFragmentManager.beginTransaction();
+                mFragmentTransaction.add(R.id.container, sunInfoFragment).commitAllowingStateLoss();
             }
 
             if (mRequestingAddress) {
@@ -416,7 +423,7 @@ public class MainActivity extends AppCompatActivity {
                         if (mRequestingLocationUpdates) {
                             startIntentService();
                         }
-                        loadInfo(mCurrentLocation);
+                        loadInfoInFragment(mCurrentLocation);
                     } else {
                         showSnackbar(R.string.no_Internet,
                                 android.R.string.ok, new View.OnClickListener() {
@@ -441,7 +448,7 @@ public class MainActivity extends AppCompatActivity {
             } else if (!checkPermissions()) {
                 requestPermissions();
             } else if (mRequestingSunInfo && mCurrentLocation != null){
-                loadInfo(mCurrentLocation);
+                loadInfoInFragment(mCurrentLocation);
             }
         }
     }
@@ -476,7 +483,7 @@ public class MainActivity extends AppCompatActivity {
                     mRequestingAddress = true;
                     startLocationUpdates();
                 } else {
-                    loadInfo(mCurrentLocation);
+                    loadInfoInFragment(mCurrentLocation);
                 }
                 return true;
 
