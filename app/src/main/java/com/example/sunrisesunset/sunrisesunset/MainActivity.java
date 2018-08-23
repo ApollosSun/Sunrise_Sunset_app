@@ -77,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
     private String mAddressOutput;
 
     private SunInfoFragment sunInfoFragment;
+    private SunInfoFragmentOkHttp sunInfoFragmentOkHttp;
     private Fragment mSavedFragment;
 
     private ProgressBar mProgressBar;
@@ -107,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
         mProgressBar = findViewById(R.id.progress_bar);
         mLocationAddressTextView = findViewById(R.id.tvAddress);
 
-        sunInfoFragment = new SunInfoFragment();
+        sunInfoFragmentOkHttp = new SunInfoFragmentOkHttp();
         mFragmentManager = getSupportFragmentManager();
 
         updateValuesFromBundle(savedInstanceState);
@@ -144,11 +145,11 @@ public class MainActivity extends AppCompatActivity {
                 isFrCreated = savedInstanceState.getBoolean(Constants.FRAGMENT_CREATED_KEY);
             }
             if (getSupportFragmentManager().
-                    getFragment(savedInstanceState, "sunInfoFragment") != null){
+                    getFragment(savedInstanceState, "sunInfoFragmentOkHttp") != null){
 
                 mSavedFragment = getSupportFragmentManager().
-                        getFragment(savedInstanceState, "sunInfoFragment");
-                sunInfoFragment = (SunInfoFragment) mSavedFragment;
+                        getFragment(savedInstanceState, "sunInfoFragmentOkHttp");
+                sunInfoFragmentOkHttp = (SunInfoFragmentOkHttp) mSavedFragment;
             }
             if (savedInstanceState.keySet().contains(Constants.PROGRESSBAR_STATE_KEY)){
                 mProgressBar.setVisibility(savedInstanceState
@@ -256,22 +257,22 @@ public class MainActivity extends AppCompatActivity {
 
             if (!isFrCreated){
 
-                sunInfoFragment.setArguments(bundle);
+                sunInfoFragmentOkHttp.setArguments(bundle);
                 mFragmentTransaction = mFragmentManager.beginTransaction();
-                mFragmentTransaction.add(R.id.container, sunInfoFragment).commit();
+                mFragmentTransaction.add(R.id.container, sunInfoFragmentOkHttp).commit();
 
                 isFrCreated = true;
 
             } else {
                 mFragmentTransaction = mFragmentManager.beginTransaction();
-                mFragmentTransaction.remove(sunInfoFragment).commitAllowingStateLoss();
+                mFragmentTransaction.remove(sunInfoFragmentOkHttp).commitAllowingStateLoss();
 
-                sunInfoFragment = new SunInfoFragment();
-                sunInfoFragment.setArguments(bundle);
+                sunInfoFragmentOkHttp = new SunInfoFragmentOkHttp();
+                sunInfoFragmentOkHttp.setArguments(bundle);
 
                 mFragmentManager = getSupportFragmentManager();
                 mFragmentTransaction = mFragmentManager.beginTransaction();
-                mFragmentTransaction.add(R.id.container, sunInfoFragment).commitAllowingStateLoss();
+                mFragmentTransaction.add(R.id.container, sunInfoFragmentOkHttp).commitAllowingStateLoss();
             }
 
             if (mRequestingAddress) {
@@ -502,7 +503,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (isFrCreated) {
             getSupportFragmentManager()
-                    .putFragment(savedInstanceState, "sunInfoFragment", sunInfoFragment);
+                    .putFragment(savedInstanceState, "sunInfoFragmentOkHttp", sunInfoFragmentOkHttp);
         }
 
         savedInstanceState.putInt(Constants.PROGRESSBAR_STATE_KEY, mProgressBar.getVisibility());
